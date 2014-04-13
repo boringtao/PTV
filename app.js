@@ -1,8 +1,10 @@
 module.exports = function (db) {
 	var express = require('express');
 	var MongoStore = require('connect-mongo')(express);
+	var routes = require('./routes');
 	var path = require('path');	
 	var app = express();
+	var fs = require('fs');
 
 	// all environments
 	app.set('port', process.env.PORT || 3000);
@@ -30,6 +32,13 @@ module.exports = function (db) {
 	if ('development' == app.get('env')) {
 	  app.use(express.errorHandler());
 	}
+
+	fs.readdirSync('routes').forEach(function(file) {
+	  if ( file[0] == '.' ) return;
+	  var routeName = file.substr(0, file.indexOf('.'));
+	  console.log(routeName);
+	  require('./routes/' + routeName)(app);
+	});
 
 	return app;
 }
