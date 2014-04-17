@@ -1,7 +1,5 @@
 module.exports = function (db) {
 	var express = require('express');
-	var MongoStore = require('connect-mongo')(express);
-	var routes = require('./routes');
 	var path = require('path');	
 	var app = express();
 	var fs = require('fs');
@@ -13,12 +11,6 @@ module.exports = function (db) {
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
 	app.use(express.cookieParser());
-	app.use(express.session({
-		secret: 'keyboard cat',
-		store: new MongoStore({
-			mongoose_connection: db
-		})
-	}));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(function (req, res, next) {
@@ -39,6 +31,9 @@ module.exports = function (db) {
 	  console.log(routeName);
 	  require('./routes/' + routeName)(app);
 	});
-
+	app.get('/', function(req, res){
+	  res.render('index.jade');
+	});
+	
 	return app;
 }

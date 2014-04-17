@@ -3,5 +3,20 @@ html
 	head
 		title Propeller TV
 	body
-		div.container Video
-			block content
+		div.container
+			h1 Video
+			div= video.name
+			div= video.intro
+			div= video.cover
+			div= video.video
+
+			form(action="/edit/"+video.id method="post" accept-charset="utf-8")
+				label(for="name") Name
+				input(type="text" name="name" value=""+video.name)
+				label(for="cover") Cover
+				input(type="text" name="cover" value=""+video.cover)
+				label(for="intro") Introduction
+				textarea(cols="40" rows="6" name="intro") #{video.intro}
+				label(for="video") Video
+				input(type="text" name="video" value=""+video.video)
+				input(type='submit')
