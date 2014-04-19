@@ -1,0 +1,14 @@
+doctype html
+html
+	head
+		title Propeller TV
+	body
+		div.container
+			if message.length > 0
+				div #{message}
+			form(action="/signup" method="post" accept-charset="utf-8")
+				label(for="name") Email
+				input(type="email" name="email")
+				label(for="cover") Password
+				input(type="password" name="password")
+				input(type='submit' value="Signup")

@@ -10,13 +10,14 @@ html
 			div= video.cover
 			div= video.video
 
-			form(action="/edit/"+video.id method="post" accept-charset="utf-8")
-				label(for="name") Name
-				input(type="text" name="name" value=""+video.name)
-				label(for="cover") Cover
-				input(type="text" name="cover" value=""+video.cover)
-				label(for="intro") Introduction
-				textarea(cols="40" rows="6" name="intro") #{video.intro}
-				label(for="video") Video
-				input(type="text" name="video" value=""+video.video)
-				input(type='submit')
+			if member != undefined && member.local.email == "taoxh@hotmail.com"
+				form(action="/edit/"+video.id method="post" accept-charset="utf-8")
+					label(for="name") Name
+					input(type="text" name="name" value=""+video.name)
+					label(for="cover") Cover
+					input(type="text" name="cover" value=""+video.cover)
+					label(for="intro") Introduction
+					textarea(cols="40" rows="6" name="intro") #{video.intro}
+					label(for="video") Video
+					input(type="text" name="video" value=""+video.video)
+					input(type='submit')
