@@ -9,7 +9,8 @@ html
 				each video, index in videos
 					li(class='video-' + index)
 						a(href="/video/" + video.id) #{video}
-						a(href="/delete/" + video.id) Delete
+						if member != undefined && member.local.email == "taoxh@hotmail.com"
+							a(href="/delete/" + video.id) Delete
 
 			if member != undefined && member.local.email == "taoxh@hotmail.com"
 				form(action="/create" method="post" accept-charset="utf-8")

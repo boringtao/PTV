@@ -2,6 +2,8 @@ doctype html
 html
 	head
 		title Propeller TV
+		script(type="text/javascript", src="/js/lib/jquery.js")
+		script(type="text/javascript", src="/js/main.js")
 	body
 		div.container
 			h1 Video
@@ -9,6 +11,11 @@ html
 			div= video.intro
 			div= video.cover
 			div= video.video
+			if member != undefined
+				if collected == 0
+					div: a.vote-button(href="/vote/"+video.id) Save to collection
+				else
+					div: a.vote-button(href="/unvote/"+video.id) Remove from collection
 
 			if member != undefined && member.local.email == "taoxh@hotmail.com"
 				form(action="/edit/"+video.id method="post" accept-charset="utf-8")

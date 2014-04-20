@@ -16,14 +16,21 @@ module.exports = function (app, passport) {
 		    });
     });
 	app.get('/video/:vid', function(req, res, next){
-		console.log(req.isAuthenticated());
 		Video.
 		    findById(req.params.vid).
 		    exec(function (err, video) {
 		      if(err) return next(err);
+		      if (req.isAuthenticated()) {
+		      	var uid = req.user.id;
+		      	var collectors = video.collectors;
+		      	var collected = (collectors.indexOf(uid) > -1 ? 1 : 0);
+		      } else {
+		      	console.log(req.user);
+		      }
 		      res.render( 'video', {
 		          video: video,
-		          member: req.user
+		          member: req.user,
+		          collected: collected
 		      });
 		    });
 	});
@@ -32,7 +39,9 @@ module.exports = function (app, passport) {
 	  		name: req.body.name,
 	  		cover: req.body.cover,
 	  		intro: req.body.intro,
-	      	video: req.body.video
+	      	video: req.body.video,	
+      		collects: 0,
+	      	collectors: []
 	  	}).save(function(err, video, count) {
 	    	if( err ) return next( err );
 	    	res.redirect(req.headers.referer);
@@ -59,6 +68,14 @@ module.exports = function (app, passport) {
       			res.redirect(req.headers.referer);
     		});
 		});
+	});
+	app.get('/vote/:vid', function(req, res){
+		Video.
+		    update({_id: req.params.vid}, {$addToSet: {collectors: req.user.id}, $inc: {collects: 1}}, function (err, updated) {
+		    	if( err ) console.log("Votes not updated");
+  				else
+  				res.redirect( '/video/'+ req.params.vid);
+    		});
 	});
 }
 

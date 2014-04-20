@@ -4,7 +4,7 @@ module.exports = function (app, passport) {
 		res.render('login.jade', {message: req.flash('loginMessage')});
 	});
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile', 
+		successRedirect : '/', 
 		failureRedirect : '/login', 
 		failureFlash : true
 	}));
@@ -13,7 +13,7 @@ module.exports = function (app, passport) {
 		res.render('signup.jade', {message: req.flash('signupMessage')});
 	});
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', 
+		successRedirect : '/', 
 		failureRedirect : '/signup'
 	}));
 
