@@ -69,10 +69,18 @@ module.exports = function (app, passport) {
     		});
 		});
 	});
-	app.get('/vote/:vid', function(req, res){
+	app.get('/collect/:vid', function(req, res){
 		Video.
 		    update({_id: req.params.vid}, {$addToSet: {collectors: req.user.id}, $inc: {collects: 1}}, function (err, updated) {
-		    	if( err ) console.log("Votes not updated");
+		    	if( err ) console.log("Collects not updated");
+  				else
+  				res.redirect( '/video/'+ req.params.vid);
+    		});
+	});
+	app.get('/uncollect/:vid', function(req, res){
+		Video.
+		    update({_id: req.params.vid}, {$pull: {collectors: req.user.id}, $inc: {collects: -1}}, function (err, updated) {
+		    	if( err ) console.log("Collects not updated");
   				else
   				res.redirect( '/video/'+ req.params.vid);
     		});

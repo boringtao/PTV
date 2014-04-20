@@ -13,9 +13,9 @@ html
 			div= video.video
 			if member != undefined
 				if collected == 0
-					div: a.vote-button(href="/vote/"+video.id) Save to collection
+					div: a(href="/collect/"+video.id) Save to collection
 				else
-					div: a.vote-button(href="/unvote/"+video.id) Remove from collection
+					div: a(href="/uncollect/"+video.id) Remove from collection
 
 			if member != undefined && member.local.email == "taoxh@hotmail.com"
 				form(action="/edit/"+video.id method="post" accept-charset="utf-8")
