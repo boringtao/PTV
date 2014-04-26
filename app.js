@@ -6,6 +6,15 @@ var app = express();
 var path = require('path');	
 var fs = require('fs');
 
+//stylus
+var stylus = require('stylus');
+var nib = require('nib');
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib());
+}
+
 // mongoose
 var mongoose = require('mongoose');
 var configDB = require('./config/database.js');
@@ -26,6 +35,10 @@ app.configure(function() {
 	app.use(express.cookieParser());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
+	app.use(function (req, res, next) {
+		res.set('X-Powered-By', 'Propeller TV');
+		next();
+	});
 
 	// passport configure
 	app.use(express.session({ secret: 'boringtao' }));
@@ -33,7 +46,12 @@ app.configure(function() {
 	app.use(passport.session());
 	app.use(flash());
 
+	//public
 	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(stylus.middleware({ 
+	  	src: __dirname + '/public', 
+	  	compile: compile
+	}));
 });
 
 if ('development' == app.get('env')) {
