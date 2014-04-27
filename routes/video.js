@@ -2,11 +2,10 @@ module.exports = function (app, passport) {
 
 	var Video = require('../app/models/video');
 
-	app.get('/category/:cid', function(req, res, next){
-		console.log(req.isAuthenticated());
-		var cid = req.params.cid;
+	app.get('/category/:cname', function(req, res, next){
+		//console.log(req.isAuthenticated());
 		Video.
-		    find().
+		    find({category: req.params.cname}).
 		    exec(function (err, videos) {
 		      if(err) return next(err);
 		      res.render( 'videos', {
@@ -36,7 +35,11 @@ module.exports = function (app, passport) {
 	});
 	app.post('/create', function(req, res, next){
 	  	new Video({
-	  		name: req.body.name,
+	  		category: req.body.category,
+	  		province: req.body.province,
+	  		station: req.body.station,
+	  		program: req.body.program,
+	  		title: req.body.title,
 	  		cover: req.body.cover,
 	  		intro: req.body.intro,
 	      	video: req.body.video,	
@@ -50,7 +53,12 @@ module.exports = function (app, passport) {
 	app.post('/edit/:vid', function(req, res){
 	  	Video.
 		    findById(req.params.vid, function(err, video){
-		    	video.name = req.body.name;
+		    	console.log(video);
+		    	video.category = req.body.category;
+	  			video.province = req.body.province;
+	  			video.station = req.body.station;
+		  		video.program = req.body.program;
+		    	video.title = req.body.title;
 	  			video.cover = req.body.cover;
 	  			video.intro = req.body.intro;
 	      		video.video = req.body.video;

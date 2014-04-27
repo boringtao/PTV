@@ -14,12 +14,32 @@ html
 
 			if member != undefined && member.local.email == "taoxh@hotmail.com"
 				form(action="/create" method="post" accept-charset="utf-8")
-					label(for="name") Name
-					input(type="text" name="name")
+					label(for="category") Category
+					fieldset(data-role="controlgroup" data-type="horizontal")
+						input(name="category" id="business" value="business" checked="checked" type="radio")
+						label(for="business") Business
+						input(name="category" id="culture" value="culture" type="radio")
+						label(for="culture") Culture
+						input(name="category" id="art" value="art" type="radio")
+						label(for="art") Art
+					label(for="province") Province
+					fieldset(data-role="controlgroup" data-type="horizontal")
+						input(name="province" id="beijing" value="beijing" type="checkbox")
+						label(for="beijing") Beijing
+						input(name="province" id="shanghai" value="shanghai" type="checkbox")
+						label(for="shanghai") Shanghai
+						input(name="province" id="jiangxi" value="jiangxi" type="checkbox")
+						label(for="jiangxi") Jiangxi
+					label(for="station") Station
+					input(type="text" name="station" required)
+					label(for="program") Program
+					input(type="text" name="program" required)
+					label(for="title") Title
+					input(type="text" name="title" required)
 					label(for="cover") Cover
-					input(type="text" name="cover")
+					input(type="text" name="cover" required)
 					label(for="intro") Introduction
-					textarea(cols="40" rows="6" name="intro")
+					textarea(cols="40" rows="6" name="intro" required)
 					label(for="video") Video
 					input(type="text" name="video")
-					input(type='submit')
+					input(type='submit' value="Submit")
