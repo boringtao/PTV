@@ -2,14 +2,14 @@ var mongoose = require('mongoose');
 
 var schemas = {
 	video: mongoose.Schema({
-		category: "String",
+		category: String,
 		province: [],
-		station: "String",
-		program: "String",
-		title: "String",
-		cover: "String",
-		intro: "String",
-		video: "String",
+		station: String,
+		program: String,
+		title: String,
+		cover: String,
+		intro: String,
+		video: String,
 		collects: 0,
 		collectors: []
 	})

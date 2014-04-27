@@ -20,8 +20,6 @@ html
 					div: a(href="/uncollect/"+video.id) Remove from collection
 
 			if member != undefined && member.local.email == "taoxh@hotmail.com"
-				- var category = ['business', 'culture', 'art']
-				- var province = ['beijing', 'shanghai', 'jiangxi']
 				form(action="/edit/"+video.id method="post" accept-charset="utf-8")
 					label(for="category") Category
 					fieldset(data-role="controlgroup" data-type="horizontal")

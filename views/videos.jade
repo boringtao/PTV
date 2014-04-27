@@ -16,20 +16,14 @@ html
 				form(action="/create" method="post" accept-charset="utf-8")
 					label(for="category") Category
 					fieldset(data-role="controlgroup" data-type="horizontal")
-						input(name="category" id="business" value="business" checked="checked" type="radio")
-						label(for="business") Business
-						input(name="category" id="culture" value="culture" type="radio")
-						label(for="culture") Culture
-						input(name="category" id="art" value="art" type="radio")
-						label(for="art") Art
+						each val in category
+							input(name="category" id= val value= val type="radio")
+							label(for= val style="text-transform: capitalize") #{val}
 					label(for="province") Province
 					fieldset(data-role="controlgroup" data-type="horizontal")
-						input(name="province" id="beijing" value="beijing" type="checkbox")
-						label(for="beijing") Beijing
-						input(name="province" id="shanghai" value="shanghai" type="checkbox")
-						label(for="shanghai") Shanghai
-						input(name="province" id="jiangxi" value="jiangxi" type="checkbox")
-						label(for="jiangxi") Jiangxi
+						each val in province
+							input(name="province" id= val value= val type="checkbox")
+							label(for= val style="text-transform: capitalize") #{val}
 					label(for="station") Station
 					input(type="text" name="station" required)
 					label(for="program") Program

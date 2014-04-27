@@ -1,6 +1,18 @@
 module.exports = function (app, passport) {
 
+	var Category = require('../app/models/category');
+	var Province = require('../app/models/province');
 	var Video = require('../app/models/video');
+	
+	var category = [];
+	for(var index in Category) {
+		category.push(Category[index]['name']);
+	}
+	var province = [];
+	for(var index in Province) {
+		province.push(Province[index]['name']);
+	}
+
 
 	app.get('/category/:cname', function(req, res, next){
 		//console.log(req.isAuthenticated());
@@ -10,11 +22,14 @@ module.exports = function (app, passport) {
 		      if(err) return next(err);
 		      res.render( 'videos', {
 		          videos: videos,
+		          category: category,
+		          province: province,
 		          member: req.user
 		      });
 		    });
     });
 	app.get('/video/:vid', function(req, res, next){
+		console.log(category);
 		Video.
 		    findById(req.params.vid).
 		    exec(function (err, video) {
@@ -24,10 +39,12 @@ module.exports = function (app, passport) {
 		      	var collectors = video.collectors;
 		      	var collected = (collectors.indexOf(uid) > -1 ? 1 : 0);
 		      } else {
-		      	console.log(req.user);
+		      	console.log('Please log in');
 		      }
 		      res.render( 'video', {
 		          video: video,
+		          category: category,
+		          province: province,
 		          member: req.user,
 		          collected: collected
 		      });
