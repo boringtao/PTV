@@ -1,0 +1,54 @@
+doctype html
+html(class="ui-mobile")
+	head
+		meta(charset="utf-8")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		meta(name="apple-mobile-web-app-status-bar-style" content="default")
+		meta(content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" name="viewport")
+		title Propeller TV
+		link(rel="shortcut icon" href="/img/favicon.ico")
+		link(rel="apple-touch-icon-precomposed" href="/img/apple-touch-icon-precomposed.png")
+		link(href="/img/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon")
+		link(href="/img/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon")
+		link(href="/img/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon")
+		link(rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png")
+	- var category = ['business', 'culture', 'art']
+	- var province = ['beijing', 'shanghai', 'jiangxi']
+	body
+		section(data-role='page')
+			header(data-role="header")
+				h1 Propeller TV
+				p Bring the world together
+				a#menu(href="#menu-panel") Menu
+				a#search(href="#search-panel") Search
+
+			nav#menu-panel(data-role="panel" data-position="left" data-display="overlay")
+				ul
+					li 
+						h3: a(href="/") Home
+					li
+						h3 Category
+						ul
+							each val in category
+								li: a(href="/category/"+val style="text-transform: capitalize") #{val}
+					li
+						h3 Province
+						ul
+							each val in province
+								li: a(href="/province/"+val style="text-transform: capitalize") #{val}
+					li
+						h3 User
+						ul
+							li: a(href="/login") Login
+							li: a(href="/signup") Register
+							li: a(href="/collection") Collection
+					li 
+						h3: a(href="/service") Service
+
+			div#search-panel(data-role="panel" data-position="right" data-display="overlay")
+				ul.search-results
+
+			block content
+
+			footer(data-role="footer" data-position="fixed")
+				p Copyright 2014 Propeller TV

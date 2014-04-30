@@ -12,10 +12,7 @@ module.exports = function (app, passport) {
 	for(var index in Province) {
 		province.push(Province[index]['name']);
 	}
-
-
 	app.get('/category/:cname', function(req, res, next){
-		//console.log(req.isAuthenticated());
 		Video.
 		    find({category: req.params.cname}).
 		    exec(function (err, videos) {
@@ -27,6 +24,39 @@ module.exports = function (app, passport) {
 		          member: req.user
 		      });
 		    });
+    });
+    app.get('/province/:pname', function(req, res, next){
+		Video.
+		    find({province: req.params.pname}).
+		    exec(function (err, videos) {
+		    	console.log(videos);
+		      if(err) return next(err);
+		      res.render( 'videos', {
+		          videos: videos,
+		          category: category,
+		          province: province,
+		          member: req.user
+		      });
+		    });
+    });
+    app.get('/collection', function(req, res, next){
+		console.log(req.isAuthenticated());
+		if (req.isAuthenticated() == true) {
+			Video.
+		    find({collectors: req.user.id}).
+		    exec(function (err, videos) {
+		      if(err) return next(err);
+		      res.render( 'collection', {
+		          videos: videos,
+		          category: category,
+		          province: province,
+		          member: req.user
+		      });
+		    });
+		} else {
+			res.redirect('/login');
+		}
+		
     });
 	app.get('/video/:vid', function(req, res, next){
 		console.log(category);
