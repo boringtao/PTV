@@ -1,8 +1,0 @@
-extends layout
-
-block content
-	h1 Videos
-	ul#video
-		each video, index in videos
-			li(class='video-' + index)
-				a(href="/video/" + video.id) #{video}
