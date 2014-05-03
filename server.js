@@ -61,10 +61,6 @@ var Schemas = {
 };
 
 var Video = mongoose.model('Video', Schemas.video);
-var videoTitle;
-Video.findOne().exec(function(err, video) {
-	videoTitle = video.title;
-})
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -75,9 +71,7 @@ app.get('/partials/:partialPath', function(req, res){
 }); 
 
 app.get('*', function(req, res){
-  	res.render('index', {
-  		videoTitle: videoTitle
-  	});
+  	res.render('index');
 });
 
 http.createServer(app).listen(app.get('port'), function(){
